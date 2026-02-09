@@ -1,0 +1,31 @@
+# NIDS - Network Intrusion Detection System
+# Production-ready requirements
+# Python 3.7+
+
+# Core dependencies
+scapy>=2.4.5              # Packet capture and processing
+pyyaml>=5.4               # YAML configuration parsing
+
+# Optional dependencies for enhanced features
+# Uncomment as needed:
+
+# For email alerts
+# smtplib (built-in, no installation needed)
+
+# For database (SQLite is built-in)
+# For MySQL support: mysql-connector-python>=8.0.0
+# For PostgreSQL support: psycopg2-binary>=2.9.0
+
+# For web API (optional future enhancement)
+# flask>=2.0.0
+# flask-cors>=3.0.10
+
+# For enhanced logging
+# python-json-logger>=2.0.0
+
+# Development dependencies (optional)
+# pytest>=6.0.0
+# pytest-cov>=2.12.0
+# black>=21.0          # Code formatting
+# flake8>=3.9.0        # Linting
+# mypy>=0.900          # Type checking

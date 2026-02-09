@@ -1,0 +1,16 @@
+{"timestamp": "2026-02-07T13:58:41.420393", "level": "INFO", "logger": "NIDS", "message": "NIDS Application initializing...", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T13:58:41.420914", "level": "INFO", "logger": "NIDS", "message": "Packet sniffer initialized", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T13:58:41.421414", "level": "INFO", "logger": "NIDS", "message": "Rule engine initialized with detection rules", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T13:58:41.421817", "level": "INFO", "logger": "NIDS", "message": "Packet analyzer initialized", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T13:58:41.423328", "level": "INFO", "logger": "NIDS", "message": "Alert manager initialized with handlers", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T13:58:41.423691", "level": "INFO", "logger": "NIDS", "message": "Dashboard API initialized", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T13:58:41.424285", "level": "INFO", "logger": "NIDS", "message": "NIDS Application initialized successfully", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T13:58:41.429271", "level": "INFO", "logger": "NIDS", "message": "NIDS Application started", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.626999", "level": "INFO", "logger": "NIDS", "message": "NIDS Application initializing...", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.627303", "level": "INFO", "logger": "NIDS", "message": "Packet sniffer initialized", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.627589", "level": "INFO", "logger": "NIDS", "message": "Rule engine initialized with detection rules", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.627794", "level": "INFO", "logger": "NIDS", "message": "Packet analyzer initialized", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.627991", "level": "INFO", "logger": "NIDS", "message": "Alert manager initialized with handlers", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.628200", "level": "INFO", "logger": "NIDS", "message": "Dashboard API initialized", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.628419", "level": "INFO", "logger": "NIDS", "message": "NIDS Application initialized successfully", "module": "(unknown file)", "function": null, "line": 0}
+{"timestamp": "2026-02-07T14:00:16.630512", "level": "INFO", "logger": "NIDS", "message": "NIDS Application started", "module": "(unknown file)", "function": null, "line": 0}

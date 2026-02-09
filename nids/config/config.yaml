@@ -1,0 +1,223 @@
+# Network Intrusion Detection System (NIDS) Configuration
+# Production-ready configuration with industry-standard thresholds
+
+# Global System Settings
+system:
+  version: "1.0.0"
+  environment: "production"  # production | development | testing
+  debug_mode: false
+  log_level: "INFO"  # DEBUG | INFO | WARNING | ERROR | CRITICAL
+  
+# Packet Sniffer Configuration
+sniffer:
+  # Network interfaces to monitor (empty = all interfaces)
+  interfaces: []  # e.g., ["eth0", "eth1", "wlan0"]
+  
+  # Packet capture settings
+  packet_timeout: 2000  # ms - timeout for packet capture
+  packet_count: 0  # 0 = infinite capture
+  max_packet_size: 65535  # bytes
+  
+  # BPF (Berkeley Packet Filter) for efficient packet filtering
+  filter: ""  # e.g., "ip", "tcp port 80", "icmp"
+  
+  # Performance tuning
+  buffer_size: 2097152  # 2MB ring buffer
+  use_threading: true
+  max_threads: 4
+
+# Detection Rules and Thresholds
+detection:
+  # ICMP Flood Detection
+  icmp_flood:
+    enabled: true
+    threshold: 100  # packets per time window
+    time_window: 10  # seconds
+    severity: "HIGH"
+    description: "Detects abnormally high ICMP packet rates"
+  
+  # TCP SYN Port Scan Detection
+  tcp_syn_scan:
+    enabled: true
+    threshold: 50  # unique ports per source IP
+    time_window: 30  # seconds
+    severity: "HIGH"
+    description: "Detects TCP SYN scanning activity"
+  
+  # Brute-Force Attempt Detection
+  brute_force:
+    enabled: true
+    failed_login_threshold: 5  # failed attempts
+    time_window: 60  # seconds
+    ports: [22, 23, 3389, 3306, 5432]  # SSH, Telnet, RDP, MySQL, PostgreSQL
+    severity: "CRITICAL"
+    description: "Detects excessive connection attempts (brute-force)"
+  
+  # ARP Spoofing Detection
+  arp_spoofing:
+    enabled: true
+    threshold: 10  # duplicate ARP replies per host
+    time_window: 30  # seconds
+    severity: "CRITICAL"
+    description: "Detects ARP spoofing and gratuitous ARP floods"
+  
+  # Port Sweep Detection (UDP)
+  udp_port_sweep:
+    enabled: true
+    threshold: 30  # unique ports
+    time_window: 20  # seconds
+    severity: "MEDIUM"
+    description: "Detects UDP port sweep activity"
+  
+  # Suspicious DNS Activity
+  dns_query_flood:
+    enabled: true
+    threshold: 50  # DNS queries
+    time_window: 10  # seconds
+    severity: "MEDIUM"
+    description: "Detects abnormal DNS query rates"
+
+# Alerting Configuration
+alerting:
+  enabled: true
+  
+  # Console Alerting
+  console:
+    enabled: true
+    show_details: true
+    color_output: true
+  
+  # Email Alerting
+  email:
+    enabled: false  # Set to true to enable
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    use_tls: true
+    sender_email: "your-email@gmail.com"
+    sender_password: "${NIDS_EMAIL_PASSWORD}"  # Use env variable
+    recipients:
+      - "security-team@company.com"
+      - "admin@company.com"
+    alert_severity_threshold: "HIGH"  # Only send emails for HIGH and CRITICAL
+  
+  # Webhook/Slack Integration (placeholder for future)
+  webhook:
+    enabled: false
+    url: ""
+    timeout: 5  # seconds
+  
+  # Alert Aggregation
+  alert_aggregation:
+    enabled: true
+    grouping_window: 30  # seconds - group similar alerts
+    batch_size: 10  # send after this many alerts
+
+# Logging Configuration
+logging:
+  # File Logging
+  file:
+    enabled: true
+    path: "./logs"
+    filename: "nids_alerts.json"
+    max_size_mb: 100  # rotate log when this size is reached
+    backup_count: 10  # keep this many backup logs
+    format: "json"  # json | csv | text
+  
+  # Database Logging
+  database:
+    enabled: false  # Set to true to enable
+    type: "sqlite"  # sqlite | mysql | postgresql
+    connection:
+      sqlite:
+        db_path: "./logs/nids.db"
+      mysql:
+        host: "localhost"
+        port: 3306
+        user: "nids_user"
+        password: "${NIDS_DB_PASSWORD}"
+        database: "nids_alerts"
+      postgresql:
+        host: "localhost"
+        port: 5432
+        user: "nids_user"
+        password: "${NIDS_DB_PASSWORD}"
+        database: "nids_alerts"
+    
+    # Data retention policy
+    retention:
+      enabled: true
+      days: 90  # delete alerts older than 90 days
+
+# Dashboard/API Configuration
+dashboard:
+  enabled: true
+  
+  # REST API for dashboard backend
+  api:
+    enabled: false  # Set to true to enable API server
+    host: "0.0.0.0"
+    port: 5000
+    cors_enabled: true
+    auth_required: true
+  
+  # Output format for dashboard
+  output_format: "json"  # json | protobuf
+  
+  # Real-time metrics
+  metrics:
+    enabled: true
+    update_interval: 5  # seconds
+
+# Security Settings
+security:
+  # Input Validation
+  validate_input: true
+  max_ip_length: 15
+  max_port: 65535
+  min_port: 0
+  
+  # Rate Limiting
+  rate_limiting:
+    enabled: true
+    max_requests_per_minute: 1000
+  
+  # Privilege Escalation Prevention
+  run_as_user: "nids"  # recommended: non-root user
+  
+  # SSL/TLS for API
+  ssl:
+    enabled: false
+    cert_path: "/path/to/cert.pem"
+    key_path: "/path/to/key.pem"
+
+# Network Configuration
+network:
+  # Whitelist IPs (exclude from monitoring)
+  whitelist_ips:
+    - "127.0.0.1"
+    - "::1"
+  
+  # Internal Network Range (for context)
+  internal_networks:
+    - "10.0.0.0/8"
+    - "172.16.0.0/12"
+    - "192.168.0.0/16"
+
+# Advanced Settings
+advanced:
+  # Packet Processing
+  use_raw_sockets: true  # requires elevated privileges
+  
+  # Machine Learning (placeholder)
+  ml_detection:
+    enabled: false
+    model_path: ""
+    confidence_threshold: 0.85
+  
+  # Performance Optimization
+  packet_batching: true
+  batch_size: 100
+  
+  # Geo-IP Lookup (for context)
+  geoip_enabled: false
+  geoip_db_path: ""
